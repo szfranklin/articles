@@ -21,9 +21,6 @@
 2. 如果数据在随时间变化，注意事件之间的关联是否会在某个时间点达到最强。现今越来越多的数据被大量收集，科技平台也越来越发达，许多事物之间意想不到的关联正等待我们发现。那么就让我们从计数开始吧！
 
 本文内容翻译并编辑自Association Rule Mining – Not Your Typical DataScience Algorithm, by Kirk Borne
-
 原文链接：https://www.mapr.com/blog/association-rule-mining-–-not-your-typical-data-science-algorithm
-
 翻译：DW
-
 校对：Ying
