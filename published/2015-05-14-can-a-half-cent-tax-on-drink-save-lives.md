@@ -6,7 +6,7 @@
  
 我们先来总体地看一下美国伊利诺伊州1999年9月至2013年12月每个月交通死亡的数据（蓝色菱形），以及依据此数据获得的线性回归线（红线）。从该图似乎看不出2009年9月执行特征税后交通死亡数有明显变化。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWtpm0LILm7GHOCsV3ImcFPUb4QFiaxaNlFN4Keiacxn6RvW1iaicujZ5prCYIbb4MShic4vRu2491gRa6g/640?wx_fmt=jpeg&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWtpm0LILm7GHOCsV3ImcFPUb4QFiaxaNlFN4Keiacxn6RvW1iaicujZ5prCYIbb4MShic4vRu2491gRa6g/640?wx_fmt=jpeg&tp=webp&wxfrom=5)
 
 而实际上 Wagenaar仅使用了2001至2011年的数据（如下图）。蓝色菱形表示2009年9月特征税执行之前每月交通死亡数，红色方形表示的是之后的数据。红线和蓝线是依据这两组数据分别获得的线性回归线。红线在最后2009年9月的交通死亡数是33，蓝线在同样的时间点的交通死亡数是28，Wagenaar因此得出结论交通死亡数大约下降了15%。
 
@@ -14,7 +14,7 @@
 
 如果真如Wagenaar所称交通死亡率下降的15%是由于征收了酒精特征税，那么如果把数据延长到2013来分析，应该得到和之前2001至2011年相似的结果，但实际却不尽然。和之前的分析方法类似，数据被分为2009年9月之前和之后。结果如下图显示，2009年9月至2013年，交通死亡数呈现的是增长趋势。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWtpm0LILm7GHOCsV3ImcFPUgZrtQKkEczx8libSDjnsqRKKplD5eON8xEaxRK3xAdrjO3qfo9Zbichw/640?wx_fmt=jpeg&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWtpm0LILm7GHOCsV3ImcFPUgZrtQKkEczx8libSDjnsqRKKplD5eON8xEaxRK3xAdrjO3qfo9Zbichw/640?wx_fmt=jpeg&tp=webp&wxfrom=5)
 
 这是为什么？可能原因是，虽然和酒精相关的死亡数确实是在下降，但是其他交通死亡数量也在下降。下图显示了因酒驾死亡占所有交通死亡数的比例，该比例从2001年略高于40％下降到了2014年略低于40%。这表明酒驾死亡数的下降很可能是因为交通死亡数整体在下降，而并不一定是由于征收酒精税使酒驾死亡数下降。
 
@@ -22,7 +22,7 @@
 
 如果进一步关注2009年9月酒精特征税执行后的线性回归图，我们发现了更有趣的现象。如下图显示酒驾死亡数在交通死亡数的比例从2009年9月的38%增长到2013年的40%。但是我们恐怕不能因此简单地下结论说酒精特征税增加了酒驾死亡数在交通死亡数中的比例。同理，Wagenaar也不能说明是征收酒精税减少了交通死亡数，而非其他因素。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWtpm0LILm7GHOCsV3ImcFPUHhlbzzCak0PGRqXGQQkFqPxHSvGD1RlYRJ5jfPJkic558NM7uuMtqRg/640?wx_fmt=jpeg&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWtpm0LILm7GHOCsV3ImcFPUHhlbzzCak0PGRqXGQQkFqPxHSvGD1RlYRJ5jfPJkic558NM7uuMtqRg/640?wx_fmt=jpeg&tp=webp&wxfrom=5)
 
 线性回归或者逻辑回归只能表明相关性，并不能说明因果关系。虽然这是老生常谈，但是对于帮助我们理解一个研究结果却至关重要。以上这个例子表明，我们没有确凿的证据表明交通死亡数的下降是由酒精特征税引起的，很多因素都可能导致这个趋势。回归的概念是假设一个变量之间的相关性（例如，每个月的交通死亡数），然后根据这些数据来预测未知数据（例如，其他月份的交通死亡数）。数据之间的相关性是一个假设，并不是结论。很多其他因素，例如养成更好的饮酒和驾驶习惯，降低酒精消耗量，安全知识教育，公路或汽车安全性提高等等都可能降低交通死亡数，也许酒精税是这些因素之一。Wagenaar的研究只能表明酒精税和交通死亡数相关，而不一定是主导因素。酒后驾驶是一个很严重的问题，如果仅仅依靠征收少额特征税就可以挽救生命的话确实很好，但是至少在这个例子中，统计分析结果并不可靠。
  
