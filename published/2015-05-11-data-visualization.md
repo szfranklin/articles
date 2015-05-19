@@ -53,11 +53,11 @@
 
 组别差异图：
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239Rc3mOQqtNKSic9bFZUafD19qKJuQGvsq6fE2mHEQHqRAkqkK241MmsA/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239Rc3mOQqtNKSic9bFZUafD19qKJuQGvsq6fE2mHEQHqRAkqkK241MmsA/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 交叉定量数据比较：
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239CxIkIsu8sM2RsaWHwyEsBf3fZ6yJYHE9qGfqaZUhe9C7CO5bm4X6kw/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239CxIkIsu8sM2RsaWHwyEsBf3fZ6yJYHE9qGfqaZUhe9C7CO5bm4X6kw/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 
 在进行不同类别中不同变量对比时，还可以采用堆叠柱状图：
@@ -68,7 +68,7 @@
 当存在较多类别时，先分离不同的类别再进行比较是一种不错的选择。决策树是处理这种问题的一个比较好的工具。图8举例研究了学生玩板球（Cricket）的影响因素。图9左将学生按照性别分成两组，发现只有20%的女生玩板球，而玩板球男生占所有男生65%。图9中和图9右分别研究了身高和班级的影响。但身高和班级对是否玩板球的影响远远小于性别。
 
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239r1akK5kNnv2eMWtm4TtIibVGaCJcMfxZojtOp5KicWs09iam3Tenr3myA/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239r1akK5kNnv2eMWtm4TtIibVGaCJcMfxZojtOp5KicWs09iam3Tenr3myA/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 ## 相关分析
 
@@ -76,13 +76,13 @@
 
 散点图：
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239Ju0qBDTUr6364tuR6Z5jXauJ0tMSFyceRR8D1yctoqiaC7KExrXupiag/0?wx_fmt=gif&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239Ju0qBDTUr6364tuR6Z5jXauJ0tMSFyceRR8D1yctoqiaC7KExrXupiag/0?wx_fmt=gif&tp=webp&wxfrom=5)
 
 我们还可以通过控制散点的形状和颜色等来加入第三个变量，绘制泡泡图（Bubble Chart）。
 
 泡泡图：
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239fKPYj4pST3icfiaKeGtcCXHBdl9oBX4zic57Zu1edT5libwVnNbEaFGxmQ/640?wx_fmt=png&tp=webp&wxfrom=5]
+![]([http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239fKPYj4pST3icfiaKeGtcCXHBdl9oBX4zic57Zu1edT5libwVnNbEaFGxmQ/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 
 当点数比较多时散点图会显得特别拥挤。在这种情况下，我们可以使每个点都稍微透明一些，这样那些点数比较密集的区域的颜色就会较深。
@@ -91,11 +91,11 @@
 
 在分析分类变量的分布情况时，可以结合饼状图和柱状图进行比较分析。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm2398X5Dqx6yoZxsAA4lGqibbbjwicTd4ZyKA0BeJAXMe5pGIIZkcJ58iaxKw/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm2398X5Dqx6yoZxsAA4lGqibbbjwicTd4ZyKA0BeJAXMe5pGIIZkcJ58iaxKw/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 当然堆叠柱状图也可以用来分析不同类别内的某两个变量的分布情况。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239PAtslzsAdDcNJmQQw8mrvDeibql0LPLxnbgribEzA3rX2nAeo2NpVZXQ/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239PAtslzsAdDcNJmQQw8mrvDeibql0LPLxnbgribEzA3rX2nAeo2NpVZXQ/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 ## 高级可视化方法
 
@@ -103,7 +103,7 @@
 
 热图（HeatMap）：热图用颜色来表示像散点图、地理空间图、面积图上的数值。你可以针对最小值，最大值，中值点设置不同的颜色梯度来表示数据的变化。热图比传统的可视化方法包含更多的信息。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm2393icN8DoRohZR2FaxGlTVFVBI8sqS2fGGxlXNCfTI1erO5FHP3zx1PrQ/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm2393icN8DoRohZR2FaxGlTVFVBI8sqS2fGGxlXNCfTI1erO5FHP3zx1PrQ/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 地理图表：数据科学家开始在地理位置上绘制数据以期帮助一些政府或者组织更好的制定策略。这里我们依然可以应用颜色或者体积等代表一个变量的大小，这有些类似于之前在散点图上的操作，唯一的区别在于现在我们将这些颜色或者体积绘制在地图上。
 
@@ -113,11 +113,11 @@
 2. 可以清楚了解每个城市数据的情况
 3. 给策略制定者更好的直观感受
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239jNvXVTCGKcyqwhOkSbjIFFNxYzU0TJxT6GGfBWce13Y8ibU1VZrkaiaw/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239jNvXVTCGKcyqwhOkSbjIFFNxYzU0TJxT6GGfBWce13Y8ibU1VZrkaiaw/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 网格图：网格图采用2D的列表模式。在这种方法中有横纵两个测度。然后根据每个测度下的分类情况绘制网格，在绘制完网格后填充颜色以代表相应的数值。
 
-!()[http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239yHITja24yAJBO0RmcAXJUyR3CWP38fIKaiaVluY5gwoevjONq1icPibpQ/640?wx_fmt=png&tp=webp&wxfrom=5]
+![](http://mmbiz.qpic.cn/mmbiz/ghbI8QDvgWvZd7WeVvZdnQMsdUSsm239yHITja24yAJBO0RmcAXJUyR3CWP38fIKaiaVluY5gwoevjONq1icPibpQ/640?wx_fmt=png&tp=webp&wxfrom=5)
 
 举个例子来说，图16展示了不同工具之间分析和展示数据的能力。其中绿色代表专业、琥珀色代表中等，红色代表一般。从上图可以看出SAS在可视化、数据探索、回归、分类、机器学习方面都有很好的性能。（这里只是一个例子，几种分析工具之间的优劣还有待详细阐述——译者注。）
 
