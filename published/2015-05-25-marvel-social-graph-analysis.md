@@ -64,6 +64,6 @@ c.特别小的集群出现在这张图的周边，里面有些角色你甚至用
 
 原文链接：http://www.dataiku.com/blog/2015/05/19/marvel-social-graph-analysis.html
 
-![](https://tower.im/projects/9e5e30038c2143cdbe4cc5be23f3c033/uploads/287d64c458ac4046b0bfc7811379170d/)
+![](https://attachments.tower.im/tower/09198bb589e74ae9b5d9cc02b11c24c1?filename=weixin-sign.jpg)
 
 
