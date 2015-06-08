@@ -39,7 +39,7 @@ FIBO 提供了清晰明确的方法来定义企业法人之间复杂的关系，
 固步自封的金融公司会被淹没在数据的海洋里。创新的金融公司会转向语义技术，通过该技术探索数据信息，解密数据价值，并为商务决策提供更好支持。
 
 
-原文作者：Sam Smith
-翻译：F.xy
-校对：Jude
-原文链接：http://analyticsweek.com/semantic-technology-unlocks-big-datas-full-value/
+- 原文作者：Sam Smith
+- 翻译：F.xy
+- 校对：Jude
+- 原文链接：http://analyticsweek.com/semantic-technology-unlocks-big-datas-full-value/
