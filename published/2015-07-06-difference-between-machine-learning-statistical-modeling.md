@@ -121,7 +121,9 @@ Logistics回归同样拥有很多的假设。即使是非线性回归也要遵�
 
 原文链接：
 http://www.analyticsvidhya.com/blog/2015/07/difference-machine-learning-statistical-modeling/
+
 原文作者：TAVISH SRIVASTAVA
+
 翻译： F.xy
 
 
