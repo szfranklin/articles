@@ -119,6 +119,10 @@ Logistics回归同样拥有很多的假设。即使是非线性回归也要遵�
 虽然机器学习和统计模型看起来为预测模型的不同分支，但它们近乎相同。通过数十年的发展两种模型的差异性越来越小。模型之间相互渗透相互学习使得未来两种模型的界限更加模糊。
 
 
+原文链接：
+http://www.analyticsvidhya.com/blog/2015/07/difference-machine-learning-statistical-modeling/
+原文作者：TAVISH SRIVASTAVA
+翻译： F.xy
 
 
 
