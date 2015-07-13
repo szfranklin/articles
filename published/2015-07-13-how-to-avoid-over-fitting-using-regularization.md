@@ -70,5 +70,7 @@ y = a1x1 + a2x2  + a3x3 + a4x4 .......
 
 
 原文作者： TAVISH SRIVASTAVA 
+
 翻译：     F.xy
+
 原文链接：http://www.analyticsvidhya.com/blog/2015/02/avoid-over-fitting-regularization/
