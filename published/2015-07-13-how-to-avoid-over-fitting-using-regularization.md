@@ -56,11 +56,11 @@ y = a1x1 + a2x2  + a3x3 + a4x4 .......
 
 存在各种各样的方法计算回归系数。一种非常常用的方法为坐标下降法。坐标下降是一种迭代方法，在给定初始值后不断寻找使得目标函数最小的收敛的回归系数值。因此我们集中处理回归系数的偏导数。在没有给出更多的导数信息前，我直接给出最后的迭代方程：
 
-![]{http://www.analyticsvidhya.com/wp-content/uploads/2015/02/gradient.png}  (1)
+![](http://www.analyticsvidhya.com/wp-content/uploads/2015/02/gradient.png)  (1)
 
 这里的θ是估计的回归系数，α为学习参数。现在我们引入损失函数，在对回归系数的平方求偏导数以后，将转化为线性形式。最终的迭代方程如下：
 
-![]{http://www.analyticsvidhya.com/wp-content/uploads/2015/02/gradient_mod.png} (2)
+![](http://www.analyticsvidhya.com/wp-content/uploads/2015/02/gradient_mod.png) (2)
 
 如果仔细观察该方程你会发现，ϑ每次迭代的开始点略小于之前的迭代结果。这是（1）与（2）两个迭代方程的唯一区别。而迭代方程（2）试图寻找绝对值最小的收敛的ϑ值。
 
