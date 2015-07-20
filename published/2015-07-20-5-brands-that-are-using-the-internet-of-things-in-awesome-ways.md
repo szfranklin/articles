@@ -47,3 +47,11 @@ Digiday 2014的报告指出，塔可钟每周六早晨在社交地图Waze上放�
 《每日移动商务》显示，该APP应用的第一个月麦当劳销量增加了8个百分点。
 
 通过物联网技术企业可以更加关注消费者的行为，甚至可以将其收集到的数据纳入使用。通过传感器，商品可以由一个工具变为消费者和制造之间的沟通媒介。这听起来是如此的酷炫。但为了安全起见，你可以不打开你的冰箱发给你的邮件。
+
+原文链接：
+
+http://contently.com/strategist/2015/03/16/5-brands-that-are-using-the-internet-of-things-in-awesome-ways/?utm_content=buffer0202c&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
+原文作者： Amanda Walgrove
+
+翻译：F.xy
