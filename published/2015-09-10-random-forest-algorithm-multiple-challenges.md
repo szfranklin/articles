@@ -60,7 +60,7 @@ predicted= predict(fit,x_test)
 
 1.假设我们设定训练集中的样本个数为N，然后通过有重置的重复多次抽样来获得这N个样本，这样的抽样结果将作为我们生成决策树的训练集；
     
-    ![](http://static.datartisan.com/upload/attachment/2015/09/hnxXy5ng.jpg)
+![](http://static.datartisan.com/upload/attachment/2015/09/hnxXy5ng.jpg)
 
 2.如果有M个输入变量，每个节点都将随机选择m(m<M)个特定的变量，然后运用这m个变量来确定最佳的分裂点。在决策树的生成过程中，m的值是保持不变的；
 3.每棵决策树都最大可能地进行生长而不进行剪枝；
