@@ -72,7 +72,6 @@ ROC 曲线如下图所示：
 我希望你已经看到 Word2Vec 和 Doc2Vec 的实用性和便捷性。通过一个非常简单的算法，我们可以获得丰富的词向量和段落向量，这些向量数据可以被应用到各种各样的 NLP 应用中。更关键的是谷歌公司开放了他们自己的预训练词向量结果，这个词向量是基于一个别人难以获取的大数据集而训练得到的。如果你想要在大数据集中训练自己的向量结果，现在已经有一个基于 Apache Spark 的 Word2Vec 实现工具。
 （https://spark.apache.org/mllib/）
 
-原文链接: 
-https://districtdatalabs.silvrback.com/modern-methods-for-sentiment-analysis
+原文链接: https://districtdatalabs.silvrback.com/modern-methods-for-sentiment-analysis
 原文作者：Michael Czerny
 翻译：Fibears
