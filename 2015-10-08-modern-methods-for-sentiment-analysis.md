@@ -62,10 +62,10 @@ ROC 曲线如下图所示：
 现在我们准备利用评论向量构建分类器模型。我们将再次使用 sklearn 中的 SGDClassifier。
 ![](http://static.datartisan.com/upload/attachment/2015/10/sn511r24.png)
 这个模型的预测精度为 86%，我们还可以利用下面的代码绘制 ROC 曲线：
-![](http://static.datartisan.com/upload/attachment/2015/10/sBbYxdNZ.png）
-![](http://static.datartisan.com/upload/attachment/2015/10/STt6xM90.png）
+![](http://static.datartisan.com/upload/attachment/2015/10/sBbYxdNZ.png)
+![](http://static.datartisan.com/upload/attachment/2015/10/STt6xM90.png)
 原论文中声称：与简单罗吉斯回归模型相比，他们利用 50 个节点的神经网络分类器能获得较高的预测精度。
-![](http://static.datartisan.com/upload/attachment/2015/10/NdyCqhU9.png）
+![](http://static.datartisan.com/upload/attachment/2015/10/NdyCqhU9.png)
 有趣的是，在这里我们并没有看到这样的改进效果。该模型的预测精度为 85%，我们没有看到他们所声称的 7.42% 误差率。这可能存在以下几个原因：我们没有对训练集和测试集进行足够多的训练，他们的 Doc2Vec 和 ANN 的实现方法不一样等原因。因为论文中没有详细的说明，所以我们很难知道到底是哪个原因。不管这么说，没有经过很多的数据预处理和变量选择过程，我们仍然取得了 86% 的预测精度。而且这不需要复杂的卷积和树图资料库。
 
 ##结论
