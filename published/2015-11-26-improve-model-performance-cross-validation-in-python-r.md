@@ -76,7 +76,7 @@ K 层交叉检验之后，我们得到 K 个不同的模型误差估算值（e1,
 我们应该试图在偏误和变化程度间找到一种平衡。降低变化程度、控制偏误可以达到这个目的。这样会得到更好的预测模型。进行这个取舍，通常会得出复杂程度较低的预测模型。
 
  
-```
+```python
 ##Python Code
 
 from sklearn import cross_validation
@@ -90,7 +90,8 @@ for traincv, testcv in cv:
         results.append( Error_function )
 print "Results: " + str( np.array(results).mean() )
  
-
+```
+```R
 ##R Code
 
 setwd('C:/Users/manish/desktop/RData')
