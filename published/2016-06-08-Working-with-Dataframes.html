@@ -1,0 +1,416 @@
+DataFrames的使用方法
+现在我们已经学会如何将数据导入 DataFrame 中，我们可以利用它来解决工作上遇到的问题。Pandas提供了大量的函数，本文无法全部覆盖，有兴趣的读者可以详细阅读官方说明文档或者利用 google 搜索更多相关的信息——网上有许多 StackOverflow 的问题和一些介绍该软件库的技术博客。
+接下来我们将利用 MovieLens数据集来介绍 DataFrame 的使用方法。
+In [2]:
+import pandas as pd
+# pass in column names for each CSV
+u_cols = ['user_id', 'age', 'sex', 'occupation', 'zip_code']
+users = pd.read_csv('ml-100k/u.user', sep = '|', names = u_cols, 
+                    encoding = 'latin-1')
+
+r_cols = ['user_id', 'movie_id', 'rating', 'unix_timestamp']
+ratings = pd.read_csv('ml-100k/u.data', sep = '\t', names = r_cols,
+                     encoding = 'latin-1')
+
+# the movies file contains columns indicating the movie's genres
+# let's only load the first five columns of the file with usecols
+m_cols = ['movie_id', 'title', 'release_date', 'video_release_date',
+         'imdb_url']
+movies = pd.read_csv('ml-100k/u.item', sep = '|', names = m_cols,
+                    usecols = range(5), encoding = 'latin-1')
+检查数据
+Pandas 中有许多用于获取 DataFrame 基本信息的函数，其中最常用的是 info 方法。
+In [3]:
+movies.info()
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 1682 entries, 0 to 1681
+Data columns (total 5 columns):
+movie_id              1682 non-null int64
+title                 1682 non-null object
+release_date          1681 non-null object
+video_release_date    0 non-null float64
+imdb_url              1679 non-null object
+dtypes: float64(1), int64(1), object(3)
+memory usage: 78.8+ KB
+上述输出结果中告诉我们 DataFrame 的一些信息:
+该数据集是一个 DataFrame 实例。
+数据的行索引是从 0 到 N-1 的一组数字，其中 N 为 DataFrame 的行数。
+数据集中总共有 1682 行观测值。
+数据集中有五列变量，其中变量 video_release_date 中没有数据，变量 release_date 和 imdb_url 中存在个别缺失值。
+最后一行给出了变量数据类型汇总情况，你可以利用 dtypes 方法获取每个变量的数据类型。
+保存该数据集所耗费的内存，你可以利用 .memory_usage 获取更多信息。
+In [5]:
+movies.dtypes
+Out[5]:
+movie_id                int64
+title                  object
+release_date           object
+video_release_date    float64
+imdb_url               object
+dtype: object
+DataFrames 中还有一个 describe 方法，它用于获取数据集的常用统计量信息。需要注意的是，该方法仅会返回数值型变量的信息，所以我们会得到 user_id 和 age 两个变量的统计量信息。
+In [9]:
+users.describe()
+Out[9]:
+user_id	age
+count	943.000000	943.000000
+mean	472.000000	34.051962
+std	272.364951	12.192740
+min	1.000000	7.000000
+25%	236.500000	25.000000
+50%	472.000000	31.000000
+75%	707.500000	43.000000
+max	943.000000	73.000000
+从上表中可以看出用户的平均年龄为 34 岁，最年轻的用户为 7 岁，最年长的用户为 73 岁，中位数为 31 岁，25分位数为 25 岁，75 分位数为 43 岁。
+你可能已经注意到我的文章中经常使用 head 方法，默认情况下，head方法会返回数据集的前五条记录，tail方法会返回最后五条记录。
+In [11]:
+movies.head()
+Out[11]:
+movie_id	title	release_date	video_release_date	imdb_url
+0	1	Toy Story (1995)	01-Jan-1995	NaN	http://us.imdb.com/M/title-exact?Toy%20Story%2...
+1	2	GoldenEye (1995)	01-Jan-1995	NaN	http://us.imdb.com/M/title-exact?GoldenEye%20(...
+2	3	Four Rooms (1995)	01-Jan-1995	NaN	http://us.imdb.com/M/title-exact?Four%20Rooms%...
+3	4	Get Shorty (1995)	01-Jan-1995	NaN	http://us.imdb.com/M/title-exact?Get%20Shorty%...
+4	5	Copycat (1995)	01-Jan-1995	NaN	http://us.imdb.com/M/title-exact?Copycat%20(1995)
+In [12]:
+movies.tail(3)
+Out[12]:
+movie_id	title	release_date	video_release_date	imdb_url
+1679	1680	Sliding Doors (1998)	01-Jan-1998	NaN	http://us.imdb.com/Title?Sliding+Doors+(1998)
+1680	1681	You So Crazy (1994)	01-Jan-1994	NaN	http://us.imdb.com/M/title-exact?You%20So%20Cr...
+1681	1682	Scream of Stone (Schrei aus Stein) (1991)	08-Mar-1996	NaN	http://us.imdb.com/M/title-exact?Schrei%20aus%...
+此外，我们还可以利用 Python 的常用切片语法来提取数据。
+In [13]:
+movies[20:22]
+Out[13]:
+movie_id	title	release_date	video_release_date	imdb_url
+20	21	Muppet Treasure Island (1996)	16-Feb-1996	NaN	http://us.imdb.com/M/title-exact?Muppet%20Trea...
+21	22	Braveheart (1995)	16-Feb-1996	NaN	http://us.imdb.com/M/title-exact?Braveheart%20...
+Selecting
+我们可以将 DataFrames 看出由一组共享索引的 Series 组成，因此从DataFrame 中选取某个变量将返回一个 Series 对象。
+In [14]:
+users['occupation'].head()
+Out[14]:
+0    technician
+1         other
+2        writer
+3    technician
+4         other
+Name: occupation, dtype: object
+将多个变量的名字传递给 DataFrame，即可获得一个包含多列变量的 DataFrame。
+In [15]:
+print(users[['age', 'zip_code']].head())
+print('\n')
+
+# can also store in a variable to use later
+columns_you_want = ['occupation', 'sex']
+print(users[columns_you_want].head())
+   age zip_code
+0   24    85711
+1   53    94043
+2   23    32067
+3   24    43537
+4   33    15213
+
+
+   occupation sex
+0  technician   M
+1       other   F
+2      writer   M
+3  technician   M
+4       other   F
+从 DataFrame 中提取行数据有多种方法，常用的方法有行索引法和布尔索引法。
+In [16]:
+# users older than 25
+print(users[users.age > 25].head(3))
+print('\n')
+
+# users aged 40 AND male
+print(users[(users.age == 40) & (users.sex == 'M')].head(3))
+print('\n')
+
+# users younger than 30 OR female
+print(users[(users.sex == 'F')|(users.age < 30)].head(3))
+   user_id  age sex occupation zip_code
+1        2   53   F      other    94043
+4        5   33   F      other    15213
+5        6   42   M  executive    98101
+
+
+     user_id  age sex  occupation zip_code
+18        19   40   M   librarian    02138
+82        83   40   M       other    44133
+115      116   40   M  healthcare    97232
+
+
+   user_id  age sex  occupation zip_code
+0        1   24   M  technician    85711
+1        2   53   F       other    94043
+2        3   23   M      writer    32067
+由于通常情况下行索引值都是一组无实际意义的数值，我们可以利用 set_index 方法将 user_id 设定为索引变量。默认情况下，set_index方法将返回一个新的 DataFrame。
+In [17]:
+print(users.set_index('user_id').head())
+print('\n')
+
+print(users.head())
+print("\n^^^ I didn't actually change the DataFrame. ^^^\n")
+
+with_new_index = users.set_index('user_id')
+print(with_new_index.head())
+print("\n^^^ I didn't actually change the DataFrame. ^^^\n")
+         age sex  occupation zip_code
+user_id                              
+1         24   M  technician    85711
+2         53   F       other    94043
+3         23   M      writer    32067
+4         24   M  technician    43537
+5         33   F       other    15213
+
+
+   user_id  age sex  occupation zip_code
+0        1   24   M  technician    85711
+1        2   53   F       other    94043
+2        3   23   M      writer    32067
+3        4   24   M  technician    43537
+4        5   33   F       other    15213
+
+^^^ I didn't actually change the DataFrame. ^^^
+
+         age sex  occupation zip_code
+user_id                              
+1         24   M  technician    85711
+2         53   F       other    94043
+3         23   M      writer    32067
+4         24   M  technician    43537
+5         33   F       other    15213
+
+^^^ I didn't actually change the DataFrame. ^^^
+
+你还可以设定参数 inplace 的数值来修改现有的 DataFrame 数据集。
+In [18]:
+users.set_index('user_id', inplace = True)
+users.head()
+Out[18]:
+age	sex	occupation	zip_code
+user_id				
+1	24	M	technician	85711
+2	53	F	other	94043
+3	23	M	writer	32067
+4	24	M	technician	43537
+5	33	F	other	15213
+从上表中可以看出，user_id 替代了原先的索引变量，我们可以利用iloc方法根据位置来选择相应的行数据。
+In [22]:
+print(users.iloc[99])
+print('\n')
+print(users.iloc[[1, 50, 300]])
+age                  36
+sex                   M
+occupation    executive
+zip_code          90254
+Name: 100, dtype: object
+
+
+         age sex occupation zip_code
+user_id                             
+2         53   F      other    94043
+51        28   M   educator    16509
+301       24   M    student    55439
+我们也可以利用loc方法根据label来选取行数据。
+In [23]:
+print(users.loc[100])
+print("\n")
+print(users.loc[[2, 51, 301]])
+age                  36
+sex                   M
+occupation    executive
+zip_code          90254
+Name: 100, dtype: object
+
+
+         age sex occupation zip_code
+user_id                             
+2         53   F      other    94043
+51        28   M   educator    16509
+301       24   M    student    55439
+此外，我们还可以利用reset_index方法来恢复默认索引变量。
+In [24]:
+users.reset_index(inplace = True)
+users.head()
+Out[24]:
+user_id	age	sex	occupation	zip_code
+0	1	24	M	technician	85711
+1	2	53	F	other	94043
+2	3	23	M	writer	32067
+3	4	24	M	technician	43537
+4	5	33	F	other	15213
+综上所述，索引的主要方法有：
+利用 loc 方法按照标签进行索引
+利用 iloc 方法按照位置进行索引
+Joining
+在数据分析过程中，我们经常需要根据一定的规则合并多个数据集。
+比如上文提到的 MovieLens 数据集就是一个很好的例子——每个电影评价都涉及到用户和电影信息，我们可以通过 user_id 和 movie_id 将其连接起来。类似于 SQL 中的 JOIN 语法，pandas.merge 可以根据某几个键值合并两个 DataFrames。该函数提供了一系列的参数(on, left_on, right_on, left_index, right_index)，这些参数用于指定合并的规则。
+默认情况下，pandas.merge 采用内连接方式合并数据集，我们可以修改参数 how 来控制合并的方式。
+how: {'left', 'right', 'outer', 'inner'}, default 'inner'
+left: 只保留左表键值的数据(SQL: left outer join)
+right: 只保留右表键值的数据(SQL: right outer join)
+outer: 保留两个表格键值并集的数据(SQL: full outer join)
+inner: 保留两个表格键值交集的数据(SQL: inner join)
+以下是几个案例说明：
+In [3]:
+left_frame = pd.DataFrame({'key': range(5),
+                          'left_value': ['a', 'b', 'c', 'd', 'e']})
+right_frame = pd.DataFrame({'key': range(2, 7),
+                           'right_value': ['f', 'g', 'h', 'i', 'j']})
+print(left_frame)
+print('\n')
+print(right_frame)
+   key left_value
+0    0          a
+1    1          b
+2    2          c
+3    3          d
+4    4          e
+
+
+   key right_value
+0    2           f
+1    3           g
+2    4           h
+3    5           i
+4    6           j
+inner join(默认设定)
+In [4]:
+pd.merge(left_frame, right_frame, on = 'key', how = 'inner')
+Out[4]:
+key	left_value	right_value
+0	2	c	f
+1	3	d	g
+2	4	e	h
+从上表中可以看出，两个表中键值不匹配的数据被剔除掉了。SQL等价语句为：
+SELECT left_frame.key, left_frame.left_value, right_frame.value FROM left_frame INNER JOIN right_frame ON left_frame.key = right_frame.key;
+如果两个 DataFrame 的键值命名不一致，我们可以 left_on 和 right_on 参数来指定合并的键值—— pd.merge(left_frame, right_frame, left_on = 'left_key', right_on = 'right_key')。此外，如果键值是 DataFrame 的索引值，我们还可以利用 left_index 和 right_index 参数来指定合并的键值——pd.merge(left_frame, right_frame, left_on = 'key', right_index = True)。
+left_outer join
+In [5]:
+pd.merge(left_frame, right_frame, on = 'key', how = 'left')
+Out[5]:
+key	left_value	right_value
+0	0	a	NaN
+1	1	b	NaN
+2	2	c	f
+3	3	d	g
+4	4	e	h
+从上表可得，左表中的数据全被保留下来，右表中键值不匹配的样本由 NULL 所替代。SQL 等价语句为：
+SELECT left_frame.key, left_frame.left_value, right_frame.right_value FROM left_frame LEFT JOIN right_frame ON left_frame.key = right_frame.key;
+right outer join
+In [6]:
+pd.merge(left_frame, right_frame, on = 'key', how = 'right')
+Out[6]:
+key	left_value	right_value
+0	2	c	f
+1	3	d	g
+2	4	e	h
+3	5	NaN	i
+4	6	NaN	j
+此时，我们保留右表的所有数据，左表中键值不匹配的样本由 NULL 替代。SQL 等价语句为：
+SELECT right_frame.key, left_frame.left_value, right_frame.right_value FROM left_frame RIGHT JOIN right_frame ON left_frame.key = right_frame.key;
+full outer join
+In [7]:
+pd.merge(left_frame, right_frame, on = 'key', how = 'outer')
+Out[7]:
+key	left_value	right_value
+0	0	a	NaN
+1	1	b	NaN
+2	2	c	f
+3	3	d	g
+4	4	e	h
+5	5	NaN	i
+6	6	NaN	j
+此时，我们保留两个表中所有的观测值，其中键值不匹配的样本均由 NULL 所替代。SQL 等价语句为（部分数据库不支持 FULL JOIN 语句，比如 MYSQL）：
+SELECT IFNULL(left_frame.key, right_frame.key) key, left_frame.left_value, right_frame.right_value FROM left_frame FULL OUTER JOIN right_frame ON left_frame.key = right_frame.key;
+Combining
+Pandas 还提供了另一种沿着轴向合并 DataFrames 的方法—— pandas.concat，该函数等价于 SQL 中的 UNION 语法。
+pandas.concat 传入 Series 或者 DataFrame 的列表对象，并返回合并后的对象。需要注意的是由于该函数处理的是列表对象，所以可以同时合并多个对象。
+In [8]:
+pd.concat([left_frame, right_frame])
+Out[8]:
+key	left_value	right_value
+0	0	a	NaN
+1	1	b	NaN
+2	2	c	NaN
+3	3	d	NaN
+4	4	e	NaN
+0	2	NaN	f
+1	3	NaN	g
+2	4	NaN	h
+3	5	NaN	i
+4	6	NaN	j
+默认情况下，该函数会沿垂直方向合并不同的对象，其中不匹配的样本由 NULL 所替代。
+此外，我们还可以利用 axis 参数来控制合并的方向。
+In [9]:
+pd.concat([left_frame, right_frame], axis = 1)
+Out[9]:
+key	left_value	key	right_value
+0	0	a	2	f
+1	1	b	3	g
+2	2	c	4	h
+3	3	d	5	i
+4	4	e	6	j
+pandas.concat 的用途非常广，但是我仅仅利用它来合并 Series/DataFrame 对象。
+Grouping
+我花了好久才掌握了 pandas 中的分组功能，但该功能确实非常实用。
+pandas 中的 groupby 方法主要用于执行数据分析过程中的 split-apply-combine 策略。如果你不熟悉这个方法的话，我建议你阅读上述说明文档。它很好地阐述了如何思考一个数据分析问题，我觉得对于数据分析师来说这是一个非常重要的技能。
+处理一个数据分析问题时，你通常会将数据集切分成一系列小块数据，然后对每部分的数据执行相应的处理，最后再汇总各部分的运算结果（这就是 split-apply-combine策略的主体思想）。pandas 中的 groupby 主要用于解决该问题，R 语言中的 plyr 和 dplyr 包中也有相应的分组函数。
+如果你曾经接触过 SQL 的 GROUP BY 功能或者 Excel 中的数据透视表功能，那么你的脑海中已经有了这种观念，只是你没有意识到罢了。
+假设我们拥有一个 DataFrame，我们想要计算每个组的平均值，如下图所示：
+img1
+芝加哥政府将整个城市的员工工资数据挂在其数据开放平台上，我们接下来利用这些数据来举例说明 groupby 方法。
+由于该数据集的工资变量中包含美元符号，所以 Python 会识别成字符型变量。我们可以利用 concerters 参数来改变读取规则。
+converters: dict.optional
+dict 用于指明那列变量需要转换
+In [ ]:
+headers = ['name', 'title', 'department', 'salary']
+chicago = pd.read_csv('city-of-chicago-salaries.csv', 
+                      header=0,
+                      names=headers,
+                      converters={'salary': lambda x: float(x.replace('$', ''))})
+chicago.head()
+pandas的 groupby 方法将返回一个 DataFrameGroupBy 对象，该对象拥有许多常用的汇总方法。
+In [ ]:
+by_dept = chicago.groupby('department')
+count 方法将返回每一列变量中所有非缺失数据的个数，size 方法将返回每组变量的个数。
+In [ ]:
+print(by_dept.count().head()) # NOT NULL records within each column
+print('\n')
+print(by_dept.size().tail()) # total records for each department
+此外，我们还可以利用 sum 和 mean 来计算变量的总数和平均数。
+In [ ]:
+print(by_dept.sum()[20:25]) # total salaries of each department
+print('\n')
+print(by_dept.mean()[20:25]) # average salary of each department
+print('\n')
+print(by_dept.median()[20:25]) # take that, RDBMS!
+我们还可以对单独的分组序列对象进行计算：比如我们想要了解数据集中最常见的五个部门名称：
+SELECT department, COUNT(DISTINCT title) FROM chicago GROUP BY department ORDER BY 2 DESC LIMIT 5;
+pandas 中的语法为：
+In [ ]:
+by_dept.title.nunique().sort_values(ascending=False)[:5]
+split-apply-combine
+groupby 方法最强大的地方在于它的 split-apply-combine 能力。
+如果我们想要了解每个部门中最高工资的员工，我们要怎么做呢？首先，我们可以利用 SQL 语句来查询：
+SELECT * FROM chicago c INNER JOIN ( SELECT department, max(salary) max_salary FROM chicago GROUP BY department ) m ON c.department = m.department AND c.salary = m.max_salary;
+上述代码会返回每个部门中最高收入的所有员工信息，或者你可以更改表格中的数据，增加一列变量然后执行更新语句。
+备注：该方法适用于 PostgreSQL, T-SQL 和 Oracle 数据库，但考虑到使用的便捷性，本文中选取 MySQL 作为默认数据库形式。不幸的是，MySQL 中没有相似的函数。
+利用 groupby 方法我们可以定义一个函数用于将所有的观测值从1标记到N。我们还可以利用 apply 函数来实现这个功能：
+In [ ]:
+def ranker(df):
+    """Assigns a rank to each employee based on salary, with 1 being the highest paid.
+    Assumes the data is DESC sorted."""
+    df['dept_rank'] = np.arange(len(df)) + 1
+    return df
+
+chicago.sort_values('salary', ascending=False, inplace=True)
+chicago = chicago.groupby('department').apply(ranker)
+print(chicago[chicago.dept_rank == 1].head(7))
+原文链接：http://www.gregreda.com/2013/10/26/working-with-pandas-dataframes/
+原文作者：Greg Reda
+译者：Fibears
