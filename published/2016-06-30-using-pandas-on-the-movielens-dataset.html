@@ -1,0 +1,287 @@
+
+利用 Pandas 来分析 MovieLens 数据集
+为了展现 Pandas 的实用性，本文将利用 Pandas 来解决 MovieLen 数据集的一些问题。我们首先回顾下如何将数据集读进 DataFrame 中并将其合并：
+In [1]:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+In [2]:
+# pass in column names for each CSV
+u_cols = ['user_id', 'age', 'sex', 'occupation', 'zip_code']
+users = pd.read_csv('ml-100k/u.user', sep='|', names=u_cols,
+                    encoding='latin-1')
+
+r_cols = ['user_id', 'movie_id', 'rating', 'unix_timestamp']
+ratings = pd.read_csv('ml-100k/u.data', sep='\t', names=r_cols,
+                      encoding='latin-1')
+
+# the movies file contains columns indicating the movie's genres
+# let's only load the first five columns of the file with usecols
+m_cols = ['movie_id', 'title', 'release_date', 'video_release_date', 'imdb_url']
+movies = pd.read_csv('ml-100k/u.item', sep='|', names=m_cols, usecols=range(5),
+                     encoding='latin-1')
+
+# create one merged DataFrame
+movie_ratings = pd.merge(movies, ratings)
+lens = pd.merge(movie_ratings, users)
+评价最多的 25 部电影
+In [3]:
+most_rated = lens.groupby('title').size().sort_values(ascending=False)[:25]
+most_rated
+Out[3]:
+title
+Star Wars (1977)                             583
+Contact (1997)                               509
+Fargo (1996)                                 508
+Return of the Jedi (1983)                    507
+Liar Liar (1997)                             485
+English Patient, The (1996)                  481
+Scream (1996)                                478
+Toy Story (1995)                             452
+Air Force One (1997)                         431
+Independence Day (ID4) (1996)                429
+Raiders of the Lost Ark (1981)               420
+Godfather, The (1972)                        413
+Pulp Fiction (1994)                          394
+Twelve Monkeys (1995)                        392
+Silence of the Lambs, The (1991)             390
+Jerry Maguire (1996)                         384
+Chasing Amy (1997)                           379
+Rock, The (1996)                             378
+Empire Strikes Back, The (1980)              367
+Star Trek: First Contact (1996)              365
+Back to the Future (1985)                    350
+Titanic (1997)                               350
+Mission: Impossible (1996)                   344
+Fugitive, The (1993)                         336
+Indiana Jones and the Last Crusade (1989)    331
+dtype: int64
+上述代码的含义是先将 DataFrame 按电影标题分组，接下来利用 size 方法计算每组样本的个数，最后按降序方式输出前 25 条观测值。
+在 SQL 中，等价的代码为：
+SELECT title, count(1)
+FROM lens
+GROUP BY title
+ORDER BY 2 DESC
+LIMIT 25;
+此外，在 Pandas 中有一个非常好用的替代函数—— value_counts：
+In [4]:
+lens.title.value_counts()[:25]
+Out[4]:
+Star Wars (1977)                             583
+Contact (1997)                               509
+Fargo (1996)                                 508
+Return of the Jedi (1983)                    507
+Liar Liar (1997)                             485
+English Patient, The (1996)                  481
+Scream (1996)                                478
+Toy Story (1995)                             452
+Air Force One (1997)                         431
+Independence Day (ID4) (1996)                429
+Raiders of the Lost Ark (1981)               420
+Godfather, The (1972)                        413
+Pulp Fiction (1994)                          394
+Twelve Monkeys (1995)                        392
+Silence of the Lambs, The (1991)             390
+Jerry Maguire (1996)                         384
+Chasing Amy (1997)                           379
+Rock, The (1996)                             378
+Empire Strikes Back, The (1980)              367
+Star Trek: First Contact (1996)              365
+Titanic (1997)                               350
+Back to the Future (1985)                    350
+Mission: Impossible (1996)                   344
+Fugitive, The (1993)                         336
+Indiana Jones and the Last Crusade (1989)    331
+Name: title, dtype: int64
+评价最高的电影
+In [6]:
+movie_stats = lens.groupby('title').agg({'rating': [np.size, np.mean]})
+movie_stats.head()
+Out[6]:
+rating
+size	mean
+title		
+'Til There Was You (1997)	9	2.333333
+1-900 (1994)	5	2.600000
+101 Dalmatians (1996)	109	2.908257
+12 Angry Men (1957)	125	4.344000
+187 (1997)	41	3.024390
+我们可以利用 agg 方法来进行分组汇总计算，其参数包括键值和汇总方法。接下来我们对汇总结果进行排序即可得到评价最高的电影：
+In [7]:
+# sort by rating average
+movie_stats.sort_values([('rating', 'mean')], ascending=False).head()
+Out[7]:
+rating
+size	mean
+title		
+They Made Me a Criminal (1939)	1	5
+Marlene Dietrich: Shadow and Light (1996)	1	5
+Saint of Fort Washington, The (1993)	2	5
+Someone Else's America (1995)	1	5
+Star Kid (1997)	3	5
+由于 movie_stats 是一个 DataFrame，因此我们可以利用 sort 方法来排序——Series 对象则使用 order 方法。此外，由于该数据集包含多层索引，所以我们需要传递一个元组数据来指定排序变量。
+上表列出来的电影中评价数量都非常少，以致于我们无法从中得到一些有价值的信息。因此我们考虑对数据集进行筛选处理，只分析评价数量大于 100 的电影：
+In [9]:
+atleast_100 = movie_stats['rating']['size'] >= 100
+movie_stats[atleast_100].sort_values([('rating', 'mean')], ascending=False)[:15]
+Out[9]:
+rating
+size	mean
+title		
+Close Shave, A (1995)	112	4.491071
+Schindler's List (1993)	298	4.466443
+Wrong Trousers, The (1993)	118	4.466102
+Casablanca (1942)	243	4.456790
+Shawshank Redemption, The (1994)	283	4.445230
+Rear Window (1954)	209	4.387560
+Usual Suspects, The (1995)	267	4.385768
+Star Wars (1977)	583	4.358491
+12 Angry Men (1957)	125	4.344000
+Citizen Kane (1941)	198	4.292929
+To Kill a Mockingbird (1962)	219	4.292237
+One Flew Over the Cuckoo's Nest (1975)	264	4.291667
+Silence of the Lambs, The (1991)	390	4.289744
+North by Northwest (1959)	179	4.284916
+Godfather, The (1972)	413	4.283293
+这个结果看起来比较靠谱，需要注意的是在这里我们利用布尔索引来筛选数据。
+在SQL中，等价的代码为：
+SELECT title, COUNT(1) size, AVG(rating) mean
+FROM lens
+GROUP BY title
+HAVING COUNT(1) >= 100
+ORDER BY 3 DESC
+LIMIT 15;
+筛选部分数据
+为了便于进一步分析，我们从数据集中筛选出评价数最高的 50 部电影：
+In [10]:
+most_50 = lens.groupby('movie_id').size().sort_values(ascending=False)[:50]
+SQL 中的等价代码为：
+CREATE TABLE most_50 AS(
+    SELECT movie_id, COUNT(1)
+    FROM lens
+    GROUP BY movie_id
+    ORDER BY 2 DESC
+    LIMIT 50
+);
+此外，我们也可以利用 EXISTS, IN 或者 JOIN 来过滤数据：
+SELECT *
+FROM lens
+WHERE EXISTS (SELECT 1 FROM most_50 WHERE lens.movie_id = most_50.movie_id);
+不同年龄段观众之间争议最大的电影
+首先，我们来看下数据集中用户的年龄分布情况：
+In [16]:
+users.age.plot.hist(bins=30)
+plt.title("Distribution of users' ages")
+plt.ylabel("count of users")
+plt.xlabel("age");
+
+Pandas 整合了 matplotlib 的基础画图功能，我们只需要对列变量调用 hist 方法即可绘制直方图。当然了，我们也可以利用 matplotlib.pyplot 来自定义绘图。
+对用户进行分箱处理
+我认为直接对比不同年龄用户的行为无法得到有价值的信息，所以我们应该根据用户的年龄情况利用 pandas.cut 将所有用户进行分箱处理。
+In [17]:
+labels = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79']
+lens['age_group'] = pd.cut(lens.age, range(0, 81, 10), right=False, labels=labels)
+lens[['age', 'age_group']].drop_duplicates()[:10]
+Out[17]:
+age	age_group
+0	60	60-69
+397	21	20-29
+459	33	30-39
+524	30	30-39
+782	23	20-29
+995	29	20-29
+1229	26	20-29
+1664	31	30-39
+1942	24	20-29
+2270	32	30-39
+上述代码中，我们首先创建分组标签名，然后根据年龄变量将用户分成八组（0-9, 10-19, 20-29,...）,其中参数 right=False 用于剔除掉区间上界数据，即30岁的用户对应的标签为 30-39。
+现在我们可以比较不同年龄组之间的评分情况：
+In [18]:
+lens.groupby('age_group').agg({'rating': [np.size, np.mean]})
+Out[18]:
+rating
+size	mean
+age_group		
+0-9	43	3.767442
+10-19	8181	3.486126
+20-29	39535	3.467333
+30-39	25696	3.554444
+40-49	15021	3.591772
+50-59	8704	3.635800
+60-69	2623	3.648875
+70-79	197	3.649746
+从上表中我们可以看出，年轻用户比其他年龄段的用户更加挑剔。接下来让我们看下这 50 部热评电影中不同年龄组用户的评价情况。
+In [19]:
+lens.set_index('movie_id', inplace=True)
+In [21]:
+by_age = lens.loc[most_50.index].groupby(['title', 'age_group'])
+by_age.rating.mean().head()
+Out[21]:
+title                 age_group
+Air Force One (1997)  10-19        3.647059
+                      20-29        3.666667
+                      30-39        3.570000
+                      40-49        3.555556
+                      50-59        3.750000
+Name: rating, dtype: float64
+需要注意的是，此处的电影标题和年龄组都是索引值，平均评分为 Series 对象。如果你觉得这个展示结果不直观的话，我们可以利用 unstack 方法将其转换成表格形式。
+In [27]:
+by_age.rating.mean().unstack(1).fillna(0)[10:20]
+Out[27]:
+age_group	0-9	10-19	20-29	30-39	40-49	50-59	60-69	70-79
+title								
+E.T. the Extra-Terrestrial (1982)	0	3.680000	3.609091	3.806818	4.160000	4.368421	4.375000	0.000000
+Empire Strikes Back, The (1980)	4	4.642857	4.311688	4.052083	4.100000	3.909091	4.250000	5.000000
+English Patient, The (1996)	5	3.739130	3.571429	3.621849	3.634615	3.774648	3.904762	4.500000
+Fargo (1996)	0	3.937500	4.010471	4.230769	4.294118	4.442308	4.000000	4.333333
+Forrest Gump (1994)	5	4.047619	3.785714	3.861702	3.847826	4.000000	3.800000	0.000000
+Fugitive, The (1993)	0	4.320000	3.969925	3.981481	4.190476	4.240000	3.666667	0.000000
+Full Monty, The (1997)	0	3.421053	4.056818	3.933333	3.714286	4.146341	4.166667	3.500000
+Godfather, The (1972)	0	4.400000	4.345070	4.412844	3.929412	4.463415	4.125000	0.000000
+Groundhog Day (1993)	0	3.476190	3.798246	3.786667	3.851064	3.571429	3.571429	4.000000
+Independence Day (ID4) (1996)	0	3.595238	3.291429	3.389381	3.718750	3.888889	2.750000	0.000000
+unstack 方法主要用于拆分多层索引，此例中我们将移除第二层索引然后将其转换成列向量，并用 0 来填补缺失值。
+男士与女士分歧最大的电影
+首先思考下你会如何利用 SQL 来解决这个问题，你可能会利用判断语句和汇总函数来旋转你的数据集，你的查询语句大概会是这个样子：
+SELECT title, AVG(IF(sex = 'F', rating, NULL)), AVG(IF(sex = 'M', rating, NULL))
+FROM lens
+GROUP BY title;
+想象下，如果你必须处理多列数据的话，这样运算是多么的麻烦。DataFrame 提供了一个简便的方法—— pivot_table 。
+In [29]:
+lens.reset_index('movie_id', inplace=True)
+In [30]:
+pivoted = lens.pivot_table(index = ['movie_id', 'title'], columns = ['sex'],
+                          values = 'rating', fill_value = 0)
+pivoted.head()
+Out[30]:
+sex	F	M
+movie_id	title		
+1	Toy Story (1995)	3.789916	3.909910
+2	GoldenEye (1995)	3.368421	3.178571
+3	Four Rooms (1995)	2.687500	3.108108
+4	Get Shorty (1995)	3.400000	3.591463
+5	Copycat (1995)	3.772727	3.140625
+In [31]:
+pivoted['diff'] = pivoted.M - pivoted.F
+pivoted.head()
+Out[31]:
+sex	F	M	diff
+movie_id	title			
+1	Toy Story (1995)	3.789916	3.909910	0.119994
+2	GoldenEye (1995)	3.368421	3.178571	-0.189850
+3	Four Rooms (1995)	2.687500	3.108108	0.420608
+4	Get Shorty (1995)	3.400000	3.591463	0.191463
+5	Copycat (1995)	3.772727	3.140625	-0.632102
+In [32]:
+pivoted.reset_index('movie_id', inplace=True)
+In [34]:
+disagreements = pivoted[pivoted.movie_id.isin(most_50.index)]['diff']
+disagreements.sort_values().plot(kind='barh', figsize=[9, 15])
+plt.title('Male vs. Female Avg. Ratings\n(Difference > 0 = Favored by Men)')
+plt.ylabel('Title')
+plt.xlabel('Average Rating Difference');
+
+从上图中我们可以看出，男性喜欢《终结者》的程度远高于女性，女性用户则更喜欢《独立日》。这个结果可靠吗？
+原文链接：http://www.gregreda.com/2013/10/26/using-pandas-on-the-movielens-dataset/
+原文作者：Greg Reda
+译者：Fibears
